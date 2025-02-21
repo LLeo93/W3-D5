@@ -381,62 +381,201 @@ console.log('ESERCIZIO 12', newest);
 /* ESERCIZIO 13
   Scrivi una funzione chiamata countMovies che ritorna il numero di film contenuti nell'array "movies" fornito.
 */
-
+const countMovies = function () {
+  return movies.length;
+};
+console.log('ESERCIZIO 13', countMovies());
 /* ESERCIZIO 14
   Scrivi una funzione chiamata "onlyTheYears" che crea un array con solamente gli anni di uscita dei film contenuti nell'array "movies" fornito.
 */
+const onlyTheYears = function (moviesArray) {
+  let years = [];
+  for (let i = 0; i < moviesArray.length; i++) {
+    years.push(moviesArray[i].Year);
+  }
+  return years;
+};
+
+console.log('ESERCIZIO 14', onlyTheYears(movies));
 
 /* ESERCIZIO 15
   Scrivi una funzione chiamata "onlyInLastMillennium" che ritorna solamente i film prodotto nel millennio scorso contenuti nell'array "movies" fornito.
 */
+const onlyInLastMillennium = function (moviesArray) {
+  const lastMillenniumMovies = moviesArray.filter((movie) => {
+    const year = parseInt(movie.Year);
+    return year >= 2000;
+  });
 
+  return lastMillenniumMovies;
+};
+const lastMillennium = onlyInLastMillennium(movies);
+console.log('ESERCIZIO 15', lastMillennium);
 /* ESERCIZIO 16
   Scrivi una funzione chiamata "sumAllTheYears" che ritorna la somma di tutti gli anni in cui sono stati prodotti i film contenuti nell'array "movies" fornito.
 */
 
+function sumAllTheYears(moviesArray) {
+  let sum = 0;
+
+  for (let i = 0; i < moviesArray.length; i++) {
+    const year = parseInt(moviesArray[i].Year);
+    sum += year;
+  }
+
+  return sum;
+}
+
+// Esempio di utilizzo:
+const sumOfYears = sumAllTheYears(movies);
+console.log(`ESERCIZIO 16  La somma di tutti gli anni è: ${sumOfYears}`);
 /* ESERCIZIO 17
-  Scrivi una funzione chiamata "searchByTitle" che riceve una stringa come parametro e ritorna i film nell'array "movies" fornito che la contengono nel titolo.
+
 */
 
+function searchByTitle(title) {
+  if (!movies || movies.length === 0) {
+    return "L'array fornito è vuoto o non valido.";
+  }
+  const matchingMovies = movies.filter((movie) => {
+    const movieTitle = movie.Title.toLowerCase();
+    const searchTitle = title.toLowerCase();
+    return movieTitle.includes(searchTitle);
+  });
+
+  return matchingMovies;
+}
+
+const searchTerm = 'lord';
+const matchingFilms = searchByTitle(searchTerm);
+console.log(`Film che contengono "${searchTerm}" nel titolo:`);
+console.log('ESERCIZIO 17', matchingFilms);
 /* ESERCIZIO 18
   Scrivi una funzione chiamata "searchAndDivide" che riceve una stringa come parametro e ritorna un oggetto contenente due array: "match" e "unmatch".
   "match" deve includere tutti i film dell'array "movies" fornito che contengono la stringa fornita all'interno del proprio titolo, mentre "unmatch" deve includere tutti i rimanenti.
 */
+function searchAndDivide(searchTerm) {
+  const match = [];
+  const unmatch = [];
 
+  movies.forEach((movie) => {
+    const movieTitle = movie.Title.toLowerCase();
+    const searchTitle = searchTerm.toLowerCase();
+
+    if (movieTitle.includes(searchTitle)) {
+      match.push(movie);
+    } else {
+      unmatch.push(movie);
+    }
+  });
+
+  return {
+    match: match,
+    unmatch: unmatch,
+  };
+}
+
+const searchTerms = 'lord';
+const dividedMovies = searchAndDivide(searchTerms);
+
+console.log(`ESERCIZIO 18, film che contengono "${searchTerm}" nel titolo:`);
+console.log(dividedMovies.match);
+
+console.log(
+  `ESERCIZIO 18, film che NON contengono "${searchTerm}" nel titolo:`
+);
+console.log(dividedMovies.unmatch);
 /* ESERCIZIO 19
   Scrivi una funzione chiamata "removeIndex" che riceve un numero come parametro e ritorna l'array "movies" fornito privo dell'elemento nella posizione ricevuta come parametro.
 */
+const removeIndex = function (index) {
+  const newMovies = [...movies];
+  newMovies.splice(index, 1);
+  return newMovies;
+};
 
-// DOM (nota: gli elementi che selezionerai non si trovano realmente nella pagina)
+const indexToRemove = 2;
+const updatedMovies = removeIndex(indexToRemove);
+console.log(`ESERCIZIO 19 array originale:`);
+console.log(movies);
+console.log(
+  `ESERCIZIO 19 array modificato (elemento all'indice ${indexToRemove} rimosso):`
+);
+console.log(updatedMovies);
 
 /* ESERCIZIO 20
   Scrivi una funzione per selezionare l'elemento dotato di id "container" all'interno della pagina.
 */
-
+const container = document.getElementById('container');
+console.log('ESERCIZIO 20');
+console.log(container);
 /* ESERCIZIO 21
   Scrivi una funzione per selezionare ogni tag <td> all'interno della pagina.
 */
-
+const td = document.getElementsByTagName('td');
+console.log('ESERCIZIO 21', td);
 /* ESERCIZIO 22
   Scrivi una funzione che, tramite un ciclo, stampa in console il testo contenuto in ogni tag <td> all'interno della pagina.
 */
+
+let ogniTd = function () {
+  const td = document.querySelectorAll('td');
+  console.log('ESERCIZIO 22');
+  td.forEach((td) => {
+    console.log(td.textContent);
+  });
+};
+ogniTd(); /*
 
 /* ESERCIZIO 23
   Scrivi una funzione per aggiungere un background di colore rosso a ogni link all'interno della pagina.
 */
 
+const ogniA = function () {
+  const a = document.querySelectorAll('a');
+  console.log('ESERCIZIO 22');
+  a.forEach((a) => {
+    a.style.backgroundColor = 'red';
+  });
+};
+ogniA();
+
 /* ESERCIZIO 24
   Scrivi una funzione per aggiungere un nuovo elemento alla lista non ordinata con id "myList".
 */
+const aggiungiElementoAllaLista = function (nuovoTesto) {
+  const myList = document.getElementById('myList');
+  const newLi = document.createElement('li');
+  newLi.textContent = nuovoTesto;
+  myList.appendChild(newLi);
+};
+aggiungiElementoAllaLista('Python');
 
 /* ESERCIZIO 25
   Scrivi una funzione per svuotare la lista non ordinata con id "myList".
 */
+const svuotaLista = function () {
+  const myList = document.getElementById('myList');
+  while (myList.firstChild) {
+    myList.removeChild(myList.firstChild);
+  }
+};
+//decommentare per attivare o richiamare la funzione
+//svuotaLista();
 
 /* ESERCIZIO 26
   Scrivi una funzione per aggiungere ad ogni tag <tr> la classe CSS "test"
 */
 
+let addClassTr = function () {
+  const righe = document.getElementsByTagName('tr');
+  let tr = document.getElementsByTagName('tr');
+  for (let i = 0; i < righe.length; i++) {
+    const riga = righe[i];
+    riga.classList.add('test');
+  }
+};
+addClassTr();
 // [EXTRA] JS Avanzato
 
 /* ESERCIZIO 27
@@ -466,5 +605,3 @@ console.log('ESERCIZIO 12', newest);
 /* ESERCIZIO 29
   Crea una funzione chiamata "isItPrime" che riceve un numero come parametro e ritorna true se il numero fornito è un numero primo.
 */
-
-/* Questo array viene usato per gli esercizi. Non modificarlo. */
